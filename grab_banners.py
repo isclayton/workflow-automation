@@ -33,6 +33,9 @@ proxyDict = {
 
 args = parser.parse_args()
 
+
+
+
 print(args)
 filename = args.targets
 def output(body, headers, status, url):
@@ -47,6 +50,7 @@ def output(body, headers, status, url):
 
 def banner(host):
     try: 
+            ip = host
             if '80' in host or '8080' in host:
                 host = f'http://{host}'
             else:
@@ -63,6 +67,9 @@ def banner(host):
             status = (req.status_code)
             headers = req.headers
             if status == 200:
+                with open('ips.txt', 'w') as w:
+                    w.write(ip)
+                w.close()
                 status = Fore.GREEN + str(f'{status}'+Fore.RESET)
                 headers = req.headers
                 if args.out is not None:
