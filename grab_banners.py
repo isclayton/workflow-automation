@@ -11,6 +11,8 @@ import re
 from multiprocessing import Pool
 import argparse
 
+http_proxy  = "http://127.0.0.1:8080"
+https_proxy = "https://127.0.0.1:8080"
 
 title_pattern=re.compile(r'<title>(.*?)</title>', re.UNICODE )
 parser = argparse.ArgumentParser(description='Utility for grabbing banners from a list of target IPs')
@@ -21,8 +23,16 @@ parser.add_argument('--targets', metavar='targets.txt', type=str,
                     help='list of targets, one host per line')
 parser.add_argument('--out', metavar='out.txt', required=False, type=str,
                     help='file to write valid hosts to')
+parser.add_argument('--noproxy', help='Disable Burp proxying', type=bool, default=False)
+
+
+proxyDict = { 
+              "http"  : http_proxy, 
+              "https" : https_proxy, 
+            }
 
 args = parser.parse_args()
+
 print(args)
 filename = args.targets
 def output(body, headers, status, url):
@@ -43,7 +53,10 @@ def banner(host):
                 host = f'https://{host}'
             Fore.RESET
             url = f'{host}'.replace(' ','').replace('\n', '')
-            req = requests.get(url, timeout=1, allow_redirects=True, verify=False)
+            if args.noproxy:
+                req = requests.get(url, timeout=1, allow_redirects=True,verify=False)
+            else:
+                req = requests.get(url, timeout=1, allow_redirects=True,proxies=proxyDict,verify=False)
             body = req.text
             if len(body) > 100 and title_pattern.search(body).group(1) != None:
                 body = title_pattern.search(body).group(1)

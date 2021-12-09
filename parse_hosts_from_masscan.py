@@ -23,6 +23,7 @@ for line in data:
             with open('db_hosts.txt', 'a') as w:
                 w.write(f'{ip} # {port} \n')
         elif port in [5556, 7001, 7002, 8001, 8005, 8009, 3389]:
+            print("PWN HOST FOUND")
             with open('pwn_hosts.txt', 'a') as w:
                 w.write(f'{ip} # {port} \n')
         else:
