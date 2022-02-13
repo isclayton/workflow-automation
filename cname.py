@@ -11,11 +11,11 @@ with open(f'hostfile.txt', 'w') as w:
             for entry in entries:
                 j = json.loads(entry)
                 if j['port'] == '443':
-                    cname = str(j['tls-grab']["common_name"][0] + '\n')
+                    cname = str(j['tls-grab']["common_name"][0])
                     hosts_entry = " ".join(j['tls-grab']["dns_names"])
                     hostnames = "\n".join(j['tls-grab']["dns_names"])
                     if len(hostnames) > 5:
                         ip = str(j['input'])
                         w.write(f'{ip} {cname} {hosts_entry}\n')
-                        w2.write(cname)
+                        w2.write(f"{cname}\n")
                         w2.write(hostnames)
