@@ -21,4 +21,4 @@ with open(f'hostfile.txt', 'w') as w:
                         w.write(f'{ip} {cname} {hosts_entry}\n')
                         w2.write(f"{cname}\n")
                         for name in hostnames:
-                            w2.write(f"{str(name)}/n")
+                            w2.write(f"{str(name)}\n")
