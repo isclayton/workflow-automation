@@ -17,4 +17,5 @@ with open(f'hostfile.txt', 'w') as w:
                     if len(hostnames) > 5:
                         ip = str(j['input'])
                         w.write(f'{ip} {cname} {hosts_entry}\n')
-                        w2.write(cname + '\n' + hostnames)
+                        w2.write(cname + '\n')
+                        w2.write(hostnames)
