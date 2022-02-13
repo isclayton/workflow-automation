@@ -4,15 +4,16 @@ import sys
 filename = sys.argv[1]
 
 
-with open(f'{filename}'+'.txt', 'w') as w:
+with open(f'hostfile.txt', 'w') as w:
     with open(filename, 'r') as f:
-        with open(f'{filename}'+'.hosts.txt', 'w') as w2:
+        with open(f'hostnames.txt', 'w') as w2:
             entries = f.readlines()
             for entry in entries:
                 j = json.loads(entry)
                 if j['port'] == '443':
-                    hostname = " ".join(j['tls-grab']["dns_names"])
-                    if len(hostname) > 5:
+                    cname = j['tls-grab']["common_name"]
+                    hosts_entry = " ".join(j['tls-grab']["dns_names"])
+                    hostnames = "\n".join(j['tls-grab']["dns_names"])
+                    if len(hostnames) > 5:
                         ip = str(j['input'])
-                        w.write(f'{ip} {hostname}\n')
-                        w2.write(f'{hostname}\n')
+                        w.write(f'{ip} {cname} {hosts_entry}\n')
