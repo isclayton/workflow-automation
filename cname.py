@@ -11,8 +11,7 @@ with open(f'{filename}'+'.txt', 'w') as w:
             for entry in entries:
                 j = json.loads(entry)
                 if j['port'] == '443':
-                    j['tls-grab']["common_name"]
-                    hostname = str(j['tls-grab']["common_name"][0])
+                    hostname = " ".join(j['tls-grab']["dns_names"])
                     if len(hostname) > 5:
                         ip = str(j['input'])
                         w.write(f'{ip} {hostname}\n')
