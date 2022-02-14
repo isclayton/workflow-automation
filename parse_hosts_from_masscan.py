@@ -15,9 +15,7 @@ for line in data:
     try:#hosts.append(
         ip = line.split('addr="')[1].split('" ')[0]
         port = int(line.split('portid="')[1].split('">')[0])
-        with open('live_hosts.txt', 'a') as w:
-             w.write(f'{ip}\n')
-        w.close()
+        hosts.append(ip)
         if port in [80, 8080, 8443, 443]:
             with open('web_hosts.txt', 'a') as w:
                 w.write(f'{ip}:{port}\n')
@@ -28,3 +26,7 @@ for line in data:
     except Exception as e:
         print(e)
         pass
+for host in hosts:
+    with open('live_hosts.txt', 'a') as w:
+        w.write(f'{ip}\n')
+    w.close()
