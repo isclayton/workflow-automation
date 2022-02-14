@@ -12,7 +12,7 @@ with open(filename, 'r') as f:
 
 for line in data:
     print(line)
-    try:#hosts.append(
+    try:
         ip = line.split('addr="')[1].split('" ')[0]
         port = int(line.split('portid="')[1].split('">')[0])
         hosts.append(ip)
@@ -30,5 +30,5 @@ for line in data:
 hosts = list(set(hosts))
 for host in hosts:
     with open('live_hosts.txt', 'a') as w:
-        w.write(f'{ip}\n')
+        w.write(f'{host}\n')
     w.close()
