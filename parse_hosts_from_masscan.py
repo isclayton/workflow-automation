@@ -16,10 +16,10 @@ for line in data:
         ip = line.split('addr="')[1].split('" ')[0]
         port = int(line.split('portid="')[1].split('">')[0])
         if port in [80, 8080, 8443, 443]:
-            with open(filename +'_web_hosts.txt', 'a') as w:
+            with open('web_hosts.txt', 'a') as w:
                 w.write(f'{ip}:{port}\n')
         else:
-            with open(filename +f'{port}.txt', 'a') as w:
+            with open(f'{port}.txt', 'a') as w:
                w.write(f'{ip}\n')
         w.close()
     except Exception as e:
