@@ -26,6 +26,8 @@ for line in data:
     except Exception as e:
         print(e)
         pass
+
+hosts = list(set(hosts))
 for host in hosts:
     with open('live_hosts.txt', 'a') as w:
         w.write(f'{ip}\n')
