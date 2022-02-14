@@ -18,16 +18,9 @@ for line in data:
         if port in [80, 8080, 8443, 443]:
             with open(filename +'_web_hosts.txt', 'a') as w:
                 w.write(f'{ip}:{port}\n')
-        elif port in [3306, 5432, 1521, 1830, 1433, 1434,27017, 27018, 27019, 28017,6379,5984,7000, 7001, 9042]:
-            with open(filename +'_db_hosts.txt', 'a') as w:
-                w.write(f'{ip} # {port} \n')
-        elif port in [5556, 7001, 7002, 8001, 8005, 8009, 3389]:
-            print("PWN HOST FOUND")
-            with open(filename +'_pwn_hosts.txt', 'a') as w:
-                w.write(f'{ip} # {port} \n')
         else:
-            with open(filename +'_odd_hosts.txt', 'a') as w:
-               w.write(f'{ip} # {port} \n')
+            with open(filename +f'{port}.txt', 'a') as w:
+               w.write(f'{ip}\n')
         w.close()
     except Exception as e:
         print(e)
