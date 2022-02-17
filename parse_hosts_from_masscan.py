@@ -24,12 +24,12 @@ for line in data:
         ip = line.split('addr="')[1].split('" ')[0]
         port = int(line.split('portid="')[1].split('">')[0])
         hosts.append(ip)
-        if args.p and port in args.p:
-            with open(f'{args.o}', 'a') as w:
-                w.write(f'{ip}:{port}\n')
-        elif not args.p and port in []:
+        #if args.p and port in args.p:
+        #    with open(f'{args.o}', 'a') as w:
+        #        w.write(f'{ip}:{port}\n')
+        if not args.p and port in [80,443]:
             with open('web_hosts.txt', 'a') as w:
-                w.write(f'{ip}:{port}\n')
+                w.write(f'{ip}\n')
         else:
             with open(f'{port}.txt', 'a') as w:
                w.write(f'{ip}\n')
