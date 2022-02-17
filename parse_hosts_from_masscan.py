@@ -2,11 +2,18 @@
 from pprint import pprint
 from sys import argv
 import re
-filename = argv[1]
 
-#pattern =re.compile('''((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)''')
+parser = argparse.ArgumentParser(description='Parse output of masscan')
+
+parser.add_argument('--file', help='masscan XML output', required=True, default="")
+
+parser.add_argument('-p', help='port(s) to parse out', required=False, default="")
+parser.add_argument('-o', help='output file', required=True, default="out.txt")
+
+args = parser.parse_args()
+
 hosts =[]
-with open(filename, 'r') as f:
+with open(args.file, 'r') as f:
     data = f.readlines()
     print(data)
 
@@ -16,7 +23,10 @@ for line in data:
         ip = line.split('addr="')[1].split('" ')[0]
         port = int(line.split('portid="')[1].split('">')[0])
         hosts.append(ip)
-        if port in [80, 8080, 8443, 443]:
+        if args.p and port in args.p:
+            with open(f'{args.o}', 'a') as w:
+                w.write(f'{ip}:{port}\n')
+        elif not args.p and port in []:
             with open('web_hosts.txt', 'a') as w:
                 w.write(f'{ip}:{port}\n')
         else:
