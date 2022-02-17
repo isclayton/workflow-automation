@@ -2,6 +2,7 @@
 from pprint import pprint
 from sys import argv
 import re
+import argparse 
 
 parser = argparse.ArgumentParser(description='Parse output of masscan')
 
