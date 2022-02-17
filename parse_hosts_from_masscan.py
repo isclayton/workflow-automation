@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='Parse output of masscan')
 
 parser.add_argument('--file', help='masscan XML output', required=True, default="")
 
-parser.add_argument('-p', help='port(s) to parse out', required=False, default="")
+parser.add_argument('-p', help='port(s) to parse out', required=False, type=list, default="")
 parser.add_argument('-o', help='output file', required=True, default="out.txt")
 
 args = parser.parse_args()
